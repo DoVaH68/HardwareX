@@ -1,57 +1,34 @@
-from rest_framework import status
-from rest_framework.response import Response
-from rest_framework.views import APIView
+from django.shortcuts import render, get_object_or_404
 
 from .models import Equipo
-from .serializers import EquipoSerializer
-from .services import listar_equipos, obtener_equipo
+from .services import listar_equipos
 
 
-class EquipoListView(APIView):
+def equipos(request):
+    lista_equipos = listar_equipos()
 
-    def get(self, request):
-
-        equipos = listar_equipos()
-
-        serializer = EquipoSerializer(
-            equipos,
-            many=True
-        )
-
-        return Response(serializer.data)
-
-    def post(self, request):
-
-        serializer = EquipoSerializer(
-            data=request.data
-        )
-
-        if serializer.is_valid():
-            serializer.save()
-
-            return Response(
-                serializer.data,
-                status=status.HTTP_201_CREATED
-            )
-
-        return Response(
-            serializer.errors,
-            status=status.HTTP_400_BAD_REQUEST
-        )
+    return render(
+        request,
+        "equipos.html",
+        {
+            "equipos": lista_equipos
+        }
+    )
 
 
-class EquipoDetailView(APIView):
+def equipo_detalle(request, id_equipo):
+    equipo = get_object_or_404(
+        Equipo.objects.select_related(
+            "id_tipo_equipo_fk",
+            "id_ubicacion_fk"
+        ),
+        id_equipo=id_equipo
+    )
 
-    def get(self, request, id_equipo):
-
-        equipo = obtener_equipo(id_equipo)
-
-        if equipo is None:
-            return Response(
-                {"detail": "Equipo no encontrado."},
-                status=status.HTTP_404_NOT_FOUND
-            )
-
-        return Response(
-            EquipoSerializer(equipo).data
-        )
+    return render(
+        request,
+        "equipos.html",
+        {
+            "equipos": [equipo]
+        }
+    )

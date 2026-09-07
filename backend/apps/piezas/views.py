@@ -29,7 +29,7 @@ class TipoPiezaListView(APIView):
     def get(self, request):
 
         tipos = listar_tipos_pieza()
-
+        
         return Response(
             TipoPiezaSerializer(
                 tipos,

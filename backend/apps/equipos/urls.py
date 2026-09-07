@@ -1,17 +1,9 @@
 from django.urls import path
 
-from .views import EquipoDetailView, EquipoListView
+from .views import equipos, equipo_detalle
+
 
 urlpatterns = [
-    path(
-        "",
-        EquipoListView.as_view(),
-        name="equipos_api",
-    ),
-
-    path(
-        "<int:id_equipo>/",
-        EquipoDetailView.as_view(),
-        name="equipo_detail_api",
-    ),
+    path("", equipos, name="equipos"),
+    path("<int:id_equipo>/", equipo_detalle, name="equipo_detalle"),
 ]

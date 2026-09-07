@@ -39,7 +39,7 @@
                     </li>
 
                     <li>
-                        <a href="{% url 'historial' %}">Information</a>
+                        <a href="{% url 'equipos' %}">Information</a>
                     </li>
 
                     <li>
@@ -121,9 +121,7 @@
                     required
                 >
 
-                <button type="submit">
-                    Register
-                </button>
+                <button type="button" onclick="window.location.href='{% url 'inicio' %}'">Register</button>
 
             </form>
 
@@ -277,6 +275,8 @@
         {% endfor %}
 
     {% endif %}
+
+    <script src="{% static 'js/login.js' %}"></script>
 
     <script
         type="module"

@@ -66,3 +66,17 @@ Ctrl + C
 - Mantener comentarios únicamente cuando expliquen lógica compleja.
 - Mantener compatibilidad con el código existente.
 
+
+
+
+## para el iker del futuro
+piensa como desarrollador junior el cual va a arreglar las conexiones
+
+mira el agent.md para ver el contexto
+
+necesito que todas las urls de la carpeta apps sean funcionales, puedes guiarte de la url de usuario, esa es funcional, necesito que todas las urls sean parecidas a la de usuario
+
+no quiero que uses API, puedes guiarte de como estamos haciendo el proyecto para saber como lo estamos haciendo
+NO quiero que arregles otras cosas aparte de las urls de apps y que se conecte bien con las templates
+
+arregla los archivos
