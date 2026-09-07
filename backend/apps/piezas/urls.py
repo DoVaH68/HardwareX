@@ -8,7 +8,7 @@ from .views import (
 
 
 urlpatterns = [
-    path("", PiezaListView.as_view(), name="piezas"),
+    path("api/", PiezaListView.as_view(), name="piezas-api"),
 
     path(
         "tipos/",

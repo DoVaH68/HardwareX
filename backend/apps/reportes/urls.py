@@ -8,9 +8,9 @@ from .views import (
 
 urlpatterns = [
     path(
-        "",
+        "api/",
         ReporteListView.as_view(),
-        name="reportes"
+        name="reportes-api"
     ),
 
     path(

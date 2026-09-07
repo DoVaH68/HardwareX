@@ -8,9 +8,9 @@ from .views import (
 
 urlpatterns = [
     path(
-        "",
+        "api/",
         MantenimientoListView.as_view(),
-        name="mantenimientos"
+        name="mantenimientos-api"
     ),
 
     path(

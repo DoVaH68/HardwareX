@@ -4,7 +4,7 @@ from .views import EquipoDetailView, EquipoListView
 
 
 urlpatterns = [
-    path("", EquipoListView.as_view(), name="equipos"),
+    path("api/", EquipoListView.as_view(), name="equipos-api"),
     path(
         "<int:id_equipo>/",
         EquipoDetailView.as_view(),
