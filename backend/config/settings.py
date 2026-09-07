@@ -20,6 +20,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
+    
+    'rest_framework',
+
     # HardwareX
     "apps.usuarios",
     "apps.equipos",
@@ -64,12 +67,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-DATABASES = {
-    "default": {
+DATABASES = {    "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "Hardwarex",
+        "NAME": "HardwareXx",
         "USER": "postgres",
-        "PASSWORD": "Sena1234",
+        "PASSWORD": "c0lombia24",
         "HOST": "localhost",
         "PORT": "5432",
     }
