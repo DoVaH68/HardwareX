@@ -5,17 +5,16 @@ from .views import (
     ReporteListView,
 )
 
-
 urlpatterns = [
     path(
-        "api/",
+        "",
         ReporteListView.as_view(),
-        name="reportes-api"
+        name="reportes_api",
     ),
 
     path(
         "<int:id_reporte>/",
         ReporteDetailView.as_view(),
-        name="reporte-detail"
+        name="reporte_detail_api",
     ),
 ]

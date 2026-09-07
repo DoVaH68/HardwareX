@@ -2,18 +2,21 @@ const registerButton = document.getElementById("register");
 const loginButton = document.getElementById("login");
 const container = document.getElementById("container");
 
-
 // ===============================
 // CAMBIAR ENTRE LOGIN Y REGISTRO
 // ===============================
 
-registerButton.addEventListener("click", () => {
-    container.classList.add("right-panel-active");
-});
+if (registerButton && container) {
+    registerButton.addEventListener("click", () => {
+        container.classList.add("right-panel-active");
+    });
+}
 
-loginButton.addEventListener("click", () => {
-    container.classList.remove("right-panel-active");
-});
+if (loginButton && container) {
+    loginButton.addEventListener("click", () => {
+        container.classList.remove("right-panel-active");
+    });
+}
 
 
 // ===============================
@@ -22,51 +25,130 @@ loginButton.addEventListener("click", () => {
 
 const loginForm = document.getElementById("loginForm");
 
-loginForm.addEventListener("submit", async (event) => {
+if (loginForm) {
+    loginForm.addEventListener("submit", async (event) => {
 
-    event.preventDefault();
+        event.preventDefault();
 
-    const formData = new FormData(loginForm);
+        const formData = new FormData(loginForm);
 
-    try {
+        try {
 
-        const response = await fetch("/login/", {
-            method: "POST",
-            body: formData,
-            headers: {
-                "X-Requested-With": "XMLHttpRequest"
+            const response = await fetch(
+                loginForm.action,
+                {
+                    method: "POST",
+                    body: formData,
+                    credentials: "same-origin",
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest"
+                    }
+                }
+            );
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                alert(
+                    data.detail ||
+                    "Correo o contraseña incorrectos."
+                );
+                return;
             }
-        });
 
-        const data = await response.json();
-
-        if (response.ok) {
-
-            console.log("Inicio de sesión exitoso:", data);
-
-            // Guardamos los datos del usuario
             sessionStorage.setItem(
                 "usuario",
                 JSON.stringify(data.usuario)
             );
 
-            // Redirigir al inicio
-            window.location.href = "/";
+            window.location.href =
+                data.redirect_url || "/";
 
-        } else {
+        } catch (error) {
+
+            console.error(
+                "Error al iniciar sesión:",
+                error
+            );
 
             alert(
-                data.detail ||
-                data.message ||
-                "Correo o contraseña incorrectos."
+                "No se pudo conectar con el servidor."
             );
         }
+    });
+}
 
-    } catch (error) {
 
-        console.error("Error al iniciar sesión:", error);
+// ===============================
+// REGISTRO
+// ===============================
 
-        alert("No se pudo conectar con el servidor.");
-    }
+const registerForm =
+    document.getElementById("registerForm");
 
-});
+if (registerForm) {
+
+    registerForm.addEventListener(
+        "submit",
+        async (event) => {
+
+            event.preventDefault();
+
+            const formData =
+                new FormData(registerForm);
+
+            try {
+
+                const response = await fetch(
+                    registerForm.action,
+                    {
+                        method: "POST",
+                        body: formData,
+                        credentials: "same-origin",
+                        headers: {
+                            "X-Requested-With":
+                                "XMLHttpRequest"
+                        }
+                    }
+                );
+
+                const data =
+                    await response.json();
+
+                if (!response.ok) {
+
+                    alert(
+                        data.detail ||
+                        "No se pudo realizar el registro."
+                    );
+
+                    return;
+                }
+
+                alert(
+                    data.message ||
+                    "Registro exitoso."
+                );
+
+                registerForm.reset();
+
+                if (container) {
+                    container.classList.remove(
+                        "right-panel-active"
+                    );
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Error al registrar:",
+                    error
+                );
+
+                alert(
+                    "No se pudo conectar con el servidor."
+                );
+            }
+        }
+    );
+}

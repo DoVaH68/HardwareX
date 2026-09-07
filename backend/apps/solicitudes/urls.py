@@ -5,17 +5,16 @@ from .views import (
     SolicitudListView,
 )
 
-
 urlpatterns = [
     path(
-        "api/",
+        "",
         SolicitudListView.as_view(),
-        name="solicitudes-api"
+        name="solicitudes_api",
     ),
 
     path(
         "<int:id_solicitud>/",
         SolicitudDetailView.as_view(),
-        name="solicitud-detail"
+        name="solicitud_detail_api",
     ),
 ]

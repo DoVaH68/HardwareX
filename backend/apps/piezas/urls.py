@@ -6,19 +6,22 @@ from .views import (
     TipoPiezaListView,
 )
 
-
 urlpatterns = [
-    path("api/", PiezaListView.as_view(), name="piezas-api"),
+    path(
+        "",
+        PiezaListView.as_view(),
+        name="piezas_api",
+    ),
 
     path(
         "tipos/",
         TipoPiezaListView.as_view(),
-        name="tipos-pieza"
+        name="tipos_pieza_api",
     ),
 
     path(
         "<int:id_pieza>/",
         PiezaDetailView.as_view(),
-        name="pieza-detail"
+        name="pieza_detail_api",
     ),
 ]
