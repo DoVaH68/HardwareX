@@ -1,10 +1,10 @@
+from django.shortcuts import render
+
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from django.shortcuts import redirect, render
 
 from .serializers import UsuarioSerializer, LoginSerializer
-from .models import Usuario
 from .services import autenticar_usuario, obtener_usuario
 
 
@@ -14,7 +14,6 @@ class LoginView(APIView):
         return render(request, "login.html")
 
     def post(self, request):
-
         serializer = LoginSerializer(data=request.data)
 
         if not serializer.is_valid():
@@ -43,45 +42,6 @@ class LoginView(APIView):
             },
             status=status.HTTP_200_OK
         )
-
-
-class RegisterView(APIView):
-
-    def get(self, request):
-        return render(request, "login.html")
-
-    def post(self, request):
-        required_fields = [
-            "nombres",
-            "apellidos",
-            "numero_tel",
-            "nombre_usuario",
-            "email",
-            "fecha_nacimiento",
-            "clave",
-        ]
-
-        if any(not request.data.get(field) for field in required_fields):
-            return render(
-                request,
-                "login.html",
-                {"error": "Todos los campos de registro son obligatorios."},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
-        Usuario.objects.create(
-            nombres=request.data["nombres"],
-            apellidos=request.data["apellidos"],
-            numero_tel=request.data["numero_tel"],
-            nombre_usuario=request.data["nombre_usuario"],
-            email=request.data["email"],
-            fecha_nacimiento=request.data["fecha_nacimiento"],
-            clave=request.data["clave"],
-            id_rol_fk=1,
-        )
-
-        return redirect("login")
-
 
 class PerfilView(APIView):
 
